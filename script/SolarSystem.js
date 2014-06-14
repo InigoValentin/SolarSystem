@@ -33,6 +33,7 @@ function SolarSystem(){
 	var planet = new Array(8);
 	var planetImage = new Array(8)
 	var sun;
+	var sunImage;
 	
 	/********************************************************************
 	 * Variables containing the canvas and its context.                 *
@@ -42,10 +43,10 @@ function SolarSystem(){
 	
 	/********************************************************************
 	 * Function that initializes the canvas, assignin it to the HTML    *
-	 * element, and set the required mouse events.                      *
+	 * element,                                                         *
 	 * #parameters:                                                     *
 	 *   canv (canvas): canvas to use. If omited, the one named         *
-	 *                  named "ObJSCanvas" will be used.                *
+	 *                  named "SSCanvas" will be used.                  *
 	 * #return: nothing                                                 *
 	 * #scope: public                                                   *
 	 ********************************************************************/	
@@ -77,6 +78,10 @@ function SolarSystem(){
 	this.initPlanets = function(screen){
 		//maxOrbit = 4498396441; //For all the solar system
 		maxOrbit = 227943824; //For the inner solar system
+		sunImage = new Image();
+		sunImage.src = "/img/sun.png";
+		planetImage[0] = new Image();
+		planetImage[0].src = "/img/mercury.png";
 		planetImage[0] = new Image();
 		planetImage[0].src = "/img/mercury.png";
 		planetImage[1] = new Image();
@@ -86,7 +91,7 @@ function SolarSystem(){
 		planetImage[3] = new Image();
 		planetImage[3].src = "/img/mars.png";
 		
-		sun = new Sun(screen, maxOrbit, ctx, "Sun", 695500, null, null)
+		sun = new Sun(screen, maxOrbit, ctx, "Sun", 695500, sunImage);
 		planet[0] = new Planet(screen, maxOrbit, ctx, "Mercury", 2439.7, 57909227, 0.20563593, 170503, planetImage[0], null);
 		planet[1] = new Planet(screen, maxOrbit, ctx, "Venus", 6051.8, 108209475, 0.00677672, 126074, planetImage[1], null);
 		planet[2] = new Planet(screen, maxOrbit, ctx, "Earth", 6371.0, 149598262, 0.01671123, 107218, planetImage[2], null);
@@ -176,20 +181,15 @@ function Planet(canvasSize, maxOrbit, ctx, name, radius, orbitRadius, excentrici
 	};
 }
 
-function Sun(canvasSize, maxOrbit, ctx, name, radius){
+function Sun(canvasSize, maxOrbit, ctx, name, radius, image){
 	
 	this.drawSun = function() {
 		x = canvasSize[0] / 2 ;
 		y = canvasSize[1] / 2;
-		rad = 10 * radius * (canvasSize[0] / 2) * 0.8 / maxOrbit;
+		rad = 20 * radius * (canvasSize[0] / 2) * 0.8 / maxOrbit;
 		if (rad < 1)
 			rad = 1;
-		ctx.beginPath();
-		ctx.moveTo(x, y);
-		ctx.arc(x, y, rad, 0, 2 * Math.PI, false);
-		ctx.fillStyle = 'orange';
-		ctx.closePath();
-		ctx.fill();
+		ctx.drawImage(image, x - rad, y - rad, rad * 2, rad * 2);
 	};
 }
 
