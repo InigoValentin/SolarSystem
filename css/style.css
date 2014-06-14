@@ -31,3 +31,19 @@ h3.hoverable:hover{
 	text-decoration:	none;
 	cursor:				pointer;
 }
+
+h3#hoverableJupiter{
+	display:	none;
+}
+
+h3#hoverableSaturn{
+	display:	none;
+}
+
+h3#hoverableUranus{
+	display:	none;
+}
+
+h3#hoverableNeptune{
+	display:	none;
+}

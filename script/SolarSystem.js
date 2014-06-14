@@ -156,24 +156,30 @@ function SolarSystem(){
 		sunImage.src = "/img/sun.png";
 		planetImage[0] = new Image();
 		planetImage[0].src = "/img/mercury.png";
-		planetImage[0] = new Image();
-		planetImage[0].src = "/img/mercury.png";
 		planetImage[1] = new Image();
 		planetImage[1].src = "/img/venus.png";
 		planetImage[2] = new Image();
 		planetImage[2].src = "/img/earth.png";
 		planetImage[3] = new Image();
 		planetImage[3].src = "/img/mars.png";
+		planetImage[4] = new Image();
+		planetImage[4].src = "/img/jupiter.png";
+		planetImage[5] = new Image();
+		planetImage[5].src = "/img/saturn.png";
+		planetImage[6] = new Image();
+		planetImage[6].src = "/img/uranus.png";
+		planetImage[7] = new Image();
+		planetImage[7].src = "/img/neptune.png";
 		
 		sun = new Sun(screen, maxOrbitFull, maxOrbitInner, ctx, "Sun", 695500, sunImage);
 		planet[0] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Mercury", 2439.7, 57909227, 0.20563593, 170503, planetImage[0], null);
 		planet[1] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Venus", 6051.8, 108209475, 0.00677672, 126074, planetImage[1], null);
 		planet[2] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Earth", 6371.0, 149598262, 0.01671123, 107218, planetImage[2], null);
 		planet[3] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Mars", 3389.5, 227943824, 0.0933941, 86677, planetImage[3], null);
-		planet[4] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Jupiter", 69911, 778340821, 0.04838624, 47002, null, null);
-		planet[5] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Saturn", 58232, 1426666422, 0.05386179, 34701, null, null);
-		planet[6] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Uranus", 25362, 2870658186, 0.04725744, 24477, null, null);
-		planet[7] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Neptune", 24622, 4498396441, 0.00859048, 19566, null, null);
+		planet[4] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Jupiter", 69911, 778340821, 0.04838624, 47002, planetImage[4], null);
+		planet[5] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Saturn", 58232, 1426666422, 0.05386179, 34701, planetImage[5], null);
+		planet[6] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Uranus", 25362, 2870658186, 0.04725744, 24477, planetImage[6], null);
+		planet[7] = new Planet(screen, maxOrbitFull, maxOrbitInner, ctx, "Neptune", 24622, 4498396441, 0.00859048, 19566, planetImage[7], null);
 
 		moveTime();
 	};

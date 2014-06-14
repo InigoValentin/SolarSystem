@@ -5,6 +5,24 @@
 		<title>Solar System</title>
 		<!-- Script file -->
 		<script type="text/javascript" src="script/SolarSystem.js"></script>
+		<script type="text/javascript">
+			function showPlanets(val) {
+				if (val == "all") {
+					solarSystem.showFullSolarSystem(true);
+					document.getElementById("hoverableJupiter").style.display = "block";
+					document.getElementById("hoverableSaturn").style.display = "block";
+					document.getElementById("hoverableUranus").style.display = "block";
+					document.getElementById("hoverableNeptune").style.display = "block";
+				}
+				else {
+					solarSystem.showFullSolarSystem(false);
+					document.getElementById("hoverableJupiter").style.display = "none";
+					document.getElementById("hoverableSaturn").style.display = "none";
+					document.getElementById("hoverableUranus").style.display = "none";
+					document.getElementById("hoverableNeptune").style.display = "none";
+				}
+			}
+		</script>
 		<!-- CSS file -->
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	</head>
@@ -14,7 +32,7 @@
 		</canvas>
 		<div id="controlPanel">
 			<h2>Solar System</h2>
-			<select>
+			<select onChange="showPlanets(this.value);">
 				<option value="inner">Inner Solar System</option>
 				<option value="all">Full Solar System</option>
 			</select> 
@@ -22,11 +40,15 @@
 			<br/><input type="checkbox" value="checkShowOrbit" id="checkShowOrbit" checked="true" onChange="solarSystem.showOrbits(this.checked);"/><label for="checkShowOrbit">Show orbits</label>
 			<br/><input type="checkbox" value="checkShowTime" id="checkShowTime" onChange="solarSystem.showTime(this.checked);"/><label for="checkShowTime">Show time</label>
 			<br/><br/><br/>
-			<h3 class="hoverable">Sun<h3/>
-			<h3 class="hoverable">Mercury<h3/>
-			<h3 class="hoverable">Venus<h3/>
-			<h3 class="hoverable">Earth<h3/>
-			<h3 class="hoverable">Mars<h3/>
+			<h3 class="hoverable" id="hoverableSun">Sun<h3/>
+			<h3 class="hoverable" id="hoverableMercury">Mercury<h3/>
+			<h3 class="hoverable" id="hoverableVenus">Venus<h3/>
+			<h3 class="hoverable" id="hoverableEarth">Earth<h3/>
+			<h3 class="hoverable" id="hoverableMars">Mars<h3/>
+			<h3 class="hoverable" id="hoverableJupiter">Jupiter<h3/>
+			<h3 class="hoverable" id="hoverableSaturn">Saturn<h3/>
+			<h3 class="hoverable" id="hoverableUranus">Uranus<h3/>
+			<h3 class="hoverable" id="hoverableNeptune">Neptune<h3/>
 		</div>
 	</body>
 </html>
