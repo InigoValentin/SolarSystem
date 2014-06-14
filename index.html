@@ -8,7 +8,7 @@
 		<!-- CSS file -->
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	</head>
-	<body onload="solarSystem = new SolarSystem(); solarSystem.initCanvas();">
+	<body onload="solarSystem = new SolarSystem(); solarSystem.init();">
 		<canvas id="SSCanvas">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
@@ -18,9 +18,9 @@
 				<option value="inner">Inner Solar System</option>
 				<option value="all">Full Solar System</option>
 			</select> 
-			<br/><input type="checkbox" value="checkRealScale" id="checkRealScale"/><label for="checkRealScale">Real scale</label>
-			<br/><input type="checkbox" value="checkShowOrbit" id="checkShowOrbit"/><label for="checkShowOrbit">Show orbits</label>
-			<br/><input type="checkbox" value="checkShowTime" id="checkShowTime"/><label for="checkShowTime">Show time</label>
+			<br/><input type="checkbox" value="checkRealScale" id="checkRealScale" onChange="solarSystem.showRealScale(this.checked);"/><label for="checkRealScale">Real scale</label>
+			<br/><input type="checkbox" value="checkShowOrbit" id="checkShowOrbit" checked="true" onChange="solarSystem.showOrbits(this.checked);"/><label for="checkShowOrbit">Show orbits</label>
+			<br/><input type="checkbox" value="checkShowTime" id="checkShowTime" onChange="solarSystem.showTime(this.checked);"/><label for="checkShowTime">Show time</label>
 			<br/><br/><br/>
 			<h3 class="hoverable">Sun<h3/>
 			<h3 class="hoverable">Mercury<h3/>
