@@ -41,41 +41,6 @@ function SolarSystem(){
 	var ctx;
 	
 	/********************************************************************
-	 * Variables containing the number of elements.                     *
-	 ********************************************************************/ 
-	var totalVert;
-	var totalMaterial = 0;
-	var totalFace
-	
-	/********************************************************************
-	 * Arrays containing the vertices, faces and materials.             *
-	 ********************************************************************/ 
-	var material;
-	var vert;
-	var face;
-	
-	/********************************************************************
-	 * Booleans to determine wich elements are to draw.                 *
-	 ********************************************************************/ 
-	var dVerts = true;
-	var dEdges = true;
-	var dFaces = true;
-	var dBackg = true;
-	
-	/********************************************************************
-	 * Booleans to indicate if mtl file should be used.                 *
-	 ********************************************************************/
-	var hasMtl = true;
-	var useMtl = true;
-	
-	/********************************************************************
-	 * Global variables that will contain the position of the mouse in  *
-	 * the previous frame to calculate rotation.                        *
-	 ********************************************************************/ 
-	var pX = null;
-	var pY = null;
-	
-	/********************************************************************
 	 * Function that initializes the canvas, assignin it to the HTML    *
 	 * element, and set the required mouse events.                      *
 	 * #parameters:                                                     *
@@ -133,19 +98,6 @@ function SolarSystem(){
 
 		moveTime();
 	};
-	
-	/********************************************************************
-	 * Function that clears the arrays and the canvas. Use to unload a  *
-	 * model.                                                           *
-	 * #parameters: none                                                *
-	 * #return: nothing                                                 *
-	 * #scope: public                                                  *
-	 ********************************************************************/
-	this.clear = function(){
-		initArrays();
-		clearCanvas();
-	};
-	
 	
 	/********************************************************************
 	 * Function that clears the canvas and gets it ready to draw on it. *
