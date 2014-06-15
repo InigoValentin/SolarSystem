@@ -47,3 +47,10 @@ h3#hoverableUranus{
 h3#hoverableNeptune{
 	display:	none;
 }
+
+div#tooltip{
+	position:			absolute;
+	display:			none;
+	background-color:	#ff0000;
+	padding:			20px;
+}

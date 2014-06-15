@@ -6,6 +6,10 @@
 		<!-- Script file -->
 		<script type="text/javascript" src="script/SolarSystem.js"></script>
 		<script type="text/javascript">
+
+			var tooltipVisible = false;
+			var selectedPlanet;
+
 			function showPlanets(val) {
 				if (val == "all") {
 					solarSystem.showFullSolarSystem(true);
@@ -21,7 +25,35 @@
 					document.getElementById("hoverableUranus").style.display = "none";
 					document.getElementById("hoverableNeptune").style.display = "none";
 				}
+			};
+
+			function showTooltip(id){
+				console.log("on");
+				tooltipVisible = true;
+				selectedPlanet = id;
+				document.getElementById("tooltip").style.display="block";
+				moveTooltip(id);
+
 			}
+
+			function hideTooltip(){
+				tooltipVisible = false;
+				document.getElementById("tooltip").style.display="none";
+
+			}
+
+			function moveTooltip(){
+				if (tooltipVisible){
+					var planetPosition = (solarSystem.getPlanetPosition(selectedPlanet));
+					var x = Math.round(planetPosition[0]);
+					var y = Math.round(planetPosition[1]);
+					document.getElementById("tooltip").style.left = x + "px";
+					document.getElementById("tooltip").style.top = y + "px";
+					setInterval(moveTooltip, 600);
+					setInterval(moveTooltip, 500);
+				}					
+			}
+
 		</script>
 		<!-- CSS file -->
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -40,15 +72,18 @@
 			<br/><input type="checkbox" value="checkShowOrbit" id="checkShowOrbit" checked="true" onChange="solarSystem.showOrbits(this.checked);"/><label for="checkShowOrbit">Show orbits</label>
 			<br/><input type="checkbox" value="checkShowTime" id="checkShowTime" onChange="solarSystem.showTime(this.checked);"/><label for="checkShowTime">Show time</label>
 			<br/><br/><br/>
-			<h3 class="hoverable" id="hoverableSun">Sun<h3/>
-			<h3 class="hoverable" id="hoverableMercury">Mercury<h3/>
-			<h3 class="hoverable" id="hoverableVenus">Venus<h3/>
+			<h3 class="hoverable" id="hoverableSun" onMouseOver="showTooltip(-1);" onMouseOut="hideTooltip();">Sun<h3/>
+			<h3 class="hoverable" id="hoverableMercury" onMouseOver="showTooltip(0);" onMouseOut="hideTooltip();">Mercury<h3/>
+			<h3 class="hoverable" id="hoverableVenus" onMouseOver="showTooltip('venus');" onMouseOut="hideTooltip();">Venus<h3/>
 			<h3 class="hoverable" id="hoverableEarth">Earth<h3/>
 			<h3 class="hoverable" id="hoverableMars">Mars<h3/>
 			<h3 class="hoverable" id="hoverableJupiter">Jupiter<h3/>
 			<h3 class="hoverable" id="hoverableSaturn">Saturn<h3/>
 			<h3 class="hoverable" id="hoverableUranus">Uranus<h3/>
 			<h3 class="hoverable" id="hoverableNeptune">Neptune<h3/>
+		</div>
+		<div id="tooltip">
+			Tooltip
 		</div>
 	</body>
 </html>

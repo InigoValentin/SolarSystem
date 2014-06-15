@@ -141,6 +141,70 @@ function SolarSystem(){
 	};
 	
 	/********************************************************************
+	 * Function that returns the position of a planet, in pixels,       *
+	 * relative to the top left of the canvas.                          *
+	 * #parameters:                                                     *
+	 *   planet (int/String): planet index (0-7, 0 being Mercury, the   *
+	 *                        closer to the Sun, -1 for the sun) or the *
+	 *                        planet name (case indiferent)             *
+	 * #return: ([int, int] the position of the planet, in pixels,      *
+	 *          relative to the top left of the canvas.                 *
+	 * #scope: private                                                  *
+	 ********************************************************************/
+	this.getPlanetPosition = function(planetid){
+		var id;
+		if (isNaN(parseFloat(planetid))){
+			var str = planetid.toUpperCase();
+			switch(str){
+				case "SUN":
+					id = -1;
+					break;
+				case "MERCURY":
+					id = 0;
+					break;
+				case "VENUS":
+					id = 1;
+					break;
+				case "EARTH":
+					id = 2;
+					break;
+				case "MARS":
+					id = 3;
+					break;
+				case "JUPITER":
+					id = 4;
+					break;
+				case "SATURN":
+					id = 5;
+					break;
+				case "URANUS":
+					id = 6;
+					break;
+				case "NEPTUNE":
+					id = 7;
+					break;
+				default:
+					id = -2;
+					console.log("No planet named '" + planetid + "'");
+			}
+		}			
+		else
+			if (planetid % 1 == 0){
+				if (planetid >= -1 && planetid <= 7)
+					id = planetid;
+				else
+					console.log("No planet for index '" + planetid + "'");
+			}
+		
+		if (id >= 0 && id <= 7)
+			return planet[id].getPosition();
+		else if (id == -1)
+			return sun.getPosition();
+		else
+			return [0, 0];
+	};
+	
+	/********************************************************************
 	 * Function that initializes the arrays with the planets and their  *
 	 * images. Also does the same for the Sun.                          *
 	 * #parameters:                                                     *
@@ -213,7 +277,7 @@ function SolarSystem(){
 			planet[i].drawPlanet(time, showFullSolarSystem, showRealScale);
 			sun.drawSun(showFullSolarSystem, showRealScale);
 		}
-		setInterval(moveTime, 400);
+		setInterval(moveTime, 600);
 	};
 	
 	thisSolarSystem = this;
@@ -238,6 +302,9 @@ function SolarSystem(){
  ********************************************************************/
 function Planet(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, orbitRadius, excentricity, velocity, image){
 	
+	var posX = 0;
+	var posY = 0;
+	
 	/********************************************************************
 	 * Function that calculates the planet position along its orbit     *
 	 * across time, calculates its size (scaled up if required) and     *
@@ -257,9 +324,9 @@ function Planet(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, orbi
 		var a = orbitRadius * (canvasSize[0] / 2) * 0.8 / maxOrbit;
 		var x0 = canvasSize[0] / 2 + a * excentricity;
 		var y0 = canvasSize[1] / 2;
-		var time = t * velocity / 100000;
+		var time = t * velocity / 800000;
 		x0 += a * excentricity;
-		var r = a * (1 - excentricity *excentricity )/(1 + excentricity * Math.cos(time));
+		var r = a * (1 - excentricity * excentricity )/(1 + excentricity * Math.cos(time));
 		var x = x0 + r * Math.cos(time);
 		var y = y0 + r * Math.sin(time);
 		var rad = radius * (canvasSize[0] / 2) * 0.8 / maxOrbit;
@@ -268,6 +335,19 @@ function Planet(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, orbi
 		if (rad < 2)
 			rad = 2;
 		ctx.drawImage(image, x - rad, y - rad, rad * 2, rad * 2);
+		posX = x;
+		posY = y;
+	};
+	
+	/********************************************************************
+	 * Function that returns the planet position, in pixels, relative   *
+	 * to the top left of the canvas, on a given time.                  *
+	 * #parameters: (none)                                              *
+	 * #return: nothing                                                 *
+	 * #scope: public                                                   *
+	 ********************************************************************/
+	this.getPosition = function(){
+		return [posX, posY];
 	};
 	
 	/********************************************************************
@@ -344,6 +424,21 @@ function Sun(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, image){
 		if (rad < 3)
 			rad = 3;
 		ctx.drawImage(image, x - rad, y - rad, rad * 2, rad * 2);
+	};
+	
+	/********************************************************************
+	 * Function that returns the Sun position, in pixels, relative to   *
+	 * the top left of the canvas.                                      *
+	 * #parameters: (none)                                              *
+	 *   t (int): time                                                  *
+	 *   showFullSolarSystem (Boolean): See variable in parent object   *
+	 * #return: nothing                                                 *
+	 * #scope: public                                                   *
+	 ********************************************************************/
+	this.getPosition = function(){
+		x = canvasSize[0] / 2 ;
+		y = canvasSize[1] / 2;
+		return [x, y];
 	};
 };
 
