@@ -14,6 +14,7 @@ function SolarSystem(){
 	var showRealScale = false;
 	var showOrbits = true;
 	var showTime = true;
+	var showToolTip = -2;
 	
 	/********************************************************************
 	 * Variable containing this object, to be refered from nested       *
@@ -62,12 +63,12 @@ function SolarSystem(){
 		var x = w.innerWidth || e.clientWidth || g.clientWidth;
 		var y = w.innerHeight|| e.clientHeight|| g.clientHeight;
 		if (x < y){
-			document.getElementById("SSCanvas").height = 0.9 * x;
-			document.getElementById("SSCanvas").width = 0.9 * x;
+			document.getElementById("SSCanvas").height = 0.8 * x;
+			document.getElementById("SSCanvas").width = 0.8 * x;
 		}
 		else{
-			document.getElementById("SSCanvas").height = 0.9 * y;
-			document.getElementById("SSCanvas").width = 0.9 * y;
+			document.getElementById("SSCanvas").height = 0.8 * y;
+			document.getElementById("SSCanvas").width = 0.8 * y;
 		}
 		if (!canvasInitialized){
 			if (canv!= null)
@@ -151,49 +152,49 @@ function SolarSystem(){
 	 *          relative to the top left of the canvas.                 *
 	 * #scope: private                                                  *
 	 ********************************************************************/
-	this.getPlanetPosition = function(planetid){
+	this.showToolTip = function(planetid){
 		var id;
 		if (isNaN(parseFloat(planetid))){
 			var str = planetid.toUpperCase();
 			switch(str){
 				case "SUN":
-					id = -1;
+					showToolTip = -1;
 					break;
 				case "MERCURY":
-					id = 0;
+					showToolTip = 0;
 					break;
 				case "VENUS":
-					id = 1;
+					showToolTip = 1;
 					break;
 				case "EARTH":
-					id = 2;
+					showToolTip = 2;
 					break;
 				case "MARS":
-					id = 3;
+					showToolTip = 3;
 					break;
 				case "JUPITER":
-					id = 4;
+					showToolTip = 4;
 					break;
 				case "SATURN":
-					id = 5;
+					showToolTip = 5;
 					break;
 				case "URANUS":
-					id = 6;
+					showToolTip = 6;
 					break;
 				case "NEPTUNE":
-					id = 7;
+					showToolTip = 7;
 					break;
 				default:
-					id = -2;
-					console.log("No planet named '" + planetid + "'");
+					showToolTip = -2;
+					break;
 			}
 		}			
 		else
 			if (planetid % 1 == 0){
 				if (planetid >= -1 && planetid <= 7)
-					id = planetid;
+					showToolTip = planetid;
 				else
-					console.log("No planet for index '" + planetid + "'");
+					showToolTip = -2;
 			}
 		
 		if (id >= 0 && id <= 7)
@@ -248,6 +249,24 @@ function SolarSystem(){
 		moveTime();
 	};
 	
+	var drawToolTip = function(id){
+		var planetPosition;
+		if (id >= 0 && id <= 7)
+			planetPosition = planet[id].getPosition();
+		else if (id == -1)
+			planetPosition = sun.getPosition();
+		var x = Math.round(planetPosition[0]);
+		var y = Math.round(planetPosition[1]);
+		ctx.beginPath();
+		ctx.rect(x - 50, y, 100, 200);
+		ctx.fillStyle = 'rgba(10, 10, 200, .4)';
+		ctx.fill();
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = '#4444cc';
+		ctx.stroke();
+		ctx.endPath();
+	}
+	
 	/********************************************************************
 	 * Function that clears the canvas and gets it ready to draw on it. *
 	 * #parameters: none                                                *
@@ -265,8 +284,10 @@ function SolarSystem(){
 	 * #scope: private                                                  *
 	 ********************************************************************/
 	var moveTime = function() {
+		setInterval(moveTime, 600);
 		time = time + 0.001;
 		clearCanvas();
+		sun.drawSun(showFullSolarSystem, showRealScale);
 		if (showFullSolarSystem)
 			var max = 8;
 		else
@@ -275,9 +296,9 @@ function SolarSystem(){
 			if (showOrbits)
 				planet[i].drawOrbit(showFullSolarSystem);
 			planet[i].drawPlanet(time, showFullSolarSystem, showRealScale);
-			sun.drawSun(showFullSolarSystem, showRealScale);
 		}
-		setInterval(moveTime, 600);
+		if (showToolTip >= -1 && showToolTip <= 7)
+			drawToolTip(showToolTip);
 	};
 	
 	thisSolarSystem = this;
