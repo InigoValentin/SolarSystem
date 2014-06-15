@@ -27,32 +27,6 @@
 				}
 			};
 
-			function showTooltip(id){
-				console.log("on");
-				tooltipVisible = true;
-				selectedPlanet = id;
-				document.getElementById("tooltip").style.display="block";
-				moveTooltip(id);
-
-			}
-
-			function hideTooltip(){
-				tooltipVisible = false;
-				document.getElementById("tooltip").style.display="none";
-
-			}
-
-			function moveTooltip(){
-				if (tooltipVisible){
-					setInterval(moveTooltip, 600);
-					var planetPosition = (solarSystem.getPlanetPosition(selectedPlanet));
-					var x = Math.round(planetPosition[0]);
-					var y = Math.round(planetPosition[1]);
-					document.getElementById("tooltip").style.left = x + "px";
-					document.getElementById("tooltip").style.top = y + "px";
-				}					
-			}
-
 		</script>
 		<!-- CSS file -->
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -76,10 +50,10 @@
 			<h3 class="hoverable" id="hoverableVenus" onMouseOver="solarSystem.showToolTip('venus');" onMouseOut="solarSystem.showToolTip(-2);">Venus<h3/>
 			<h3 class="hoverable" id="hoverableEarth" onMouseOver="solarSystem.showToolTip('EARTH');" onMouseOut="solarSystem.showToolTip(-2);">Earth<h3/>
 			<h3 class="hoverable" id="hoverableMars" onMouseOver="solarSystem.showToolTip('mArS');" onMouseOut="solarSystem.showToolTip(-2);">Mars<h3/>
-			<h3 class="hoverable" id="hoverableJupiter">Jupiter<h3/>
-			<h3 class="hoverable" id="hoverableSaturn">Saturn<h3/>
-			<h3 class="hoverable" id="hoverableUranus">Uranus<h3/>
-			<h3 class="hoverable" id="hoverableNeptune">Neptune<h3/>
+			<h3 class="hoverable" id="hoverableJupiter" onMouseOver="solarSystem.showToolTip('4');" onMouseOut="solarSystem.showToolTip(-2);">Jupiter<h3/>
+			<h3 class="hoverable" id="hoverableSaturn" onMouseOver="solarSystem.showToolTip('5');" onMouseOut="solarSystem.showToolTip(-2);">Saturn<h3/>
+			<h3 class="hoverable" id="hoverableUranus" onMouseOver="solarSystem.showToolTip('6');" onMouseOut="solarSystem.showToolTip(-2);">Uranus<h3/>
+			<h3 class="hoverable" id="hoverableNeptune" onMouseOver="solarSystem.showToolTip('7');" onMouseOut="solarSystem.showToolTip(-2);">Neptune<h3/>
 		</div>
 	</body>
 </html>
