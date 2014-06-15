@@ -142,15 +142,14 @@ function SolarSystem(){
 	};
 	
 	/********************************************************************
-	 * Function that returns the position of a planet, in pixels,       *
-	 * relative to the top left of the canvas.                          *
+	 * Function that sets the showToolTip variable with an integer so   *
+	 * a tooltip will or not be drawn on the next frame                 *
 	 * #parameters:                                                     *
 	 *   planet (int/String): planet index (0-7, 0 being Mercury, the   *
 	 *                        closer to the Sun, -1 for the sun) or the *
 	 *                        planet name (case indiferent)             *
-	 * #return: ([int, int] the position of the planet, in pixels,      *
-	 *          relative to the top left of the canvas.                 *
-	 * #scope: private                                                  *
+	 * #return: nothing                                                 *
+	 * #scope: public                                                  *
 	 ********************************************************************/
 	this.showToolTip = function(planetid){
 		var id;
@@ -196,13 +195,6 @@ function SolarSystem(){
 				else
 					showToolTip = -2;
 			}
-		
-		if (id >= 0 && id <= 7)
-			return planet[id].getPosition();
-		else if (id == -1)
-			return sun.getPosition();
-		else
-			return [0, 0];
 	};
 	
 	/********************************************************************
@@ -249,6 +241,14 @@ function SolarSystem(){
 		moveTime();
 	};
 	
+	/********************************************************************
+	 * Function that draws a tooltip with usefull info about a planet   *
+	 * or the Sun, in the same position as the planet.                  *
+	 * #parameters:                                                     *
+	 *   id (int) index of the planet (0-7) or -1 for the Sun           *
+	 * #return: nothing                                                 *
+	 * #scope: private                                                  *
+	 ********************************************************************/
 	var drawToolTip = function(id){
 		var planetPosition;
 		if (id >= 0 && id <= 7)
@@ -354,13 +354,25 @@ function SolarSystem(){
  *   excentricity (float): excentricity of the orbit ellipse        *
  *   velocity (int): orbit velocity of the planet, in km/h          *
  *   image (Image): image of the planet                             *
+ *   strMass (String): Mass of the planet, in scientific notation   *
+ *   gravity (float): Gravity on the surface of the planet          *
+ *   moons (int): Number of moons orbitting the planet              *
  * #return: nothing                                                 *
  ********************************************************************/
 function Planet(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, orbitRadius, excentricity, velocity, image, strMass, gravity, moons){
 	
+	/********************************************************************
+	 * Variables that store the current position of the planet, in px   *
+	 ********************************************************************/ 
 	var posX = 0;
 	var posY = 0;
-	
+		
+	/********************************************************************
+	 * Getters to read different atributes about the planet.     .      *
+	 * #parameters: none                                                *
+	 * #return: the required parameter                                  *
+	 * #scope: public                                                   *
+	 ********************************************************************/
 	this.getImage = function(){
 		return image;
 	};
@@ -476,8 +488,8 @@ function Planet(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, orbi
 };
 
 /********************************************************************
- * The Sun object stores information about each planet, both to     *
- * draw the canvas and to display information on the tooltip.       *
+ * The Sun object stores information about the Sun, both to draw    *
+ * the canvas and to display information on the tooltip.            *
  * #parameters:                                                     *
  *   canvasSize ([int, int]): the canvas dimensions (width, height) *
  *   maxOrbitFull (int): biggest orbit from the full Solar System   *
@@ -486,10 +498,18 @@ function Planet(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, orbi
  *   name (String): the planet name                                 *
  *   radius (int): the planet radius, in Km                         *
  *   image (Image): image of the planet                             *
+ *   strMass (String): Mass of the Sun, in scientific notation      *
+ *   gravity (float): Gravity on the surface of the Sun             *
  * #return: nothing                                                 *
  ********************************************************************/
 function Sun(canvasSize, maxOrbitFull, maxOrbitInner, ctx, name, radius, image, strMass, gravity){
 	
+	/********************************************************************
+	 * Getters to read different atributes about the Sun.               *
+	 * #parameters: none                                                *
+	 * #return: the required parameter                                  *
+	 * #scope: public                                                   *
+	 ********************************************************************/
 	this.getImage = function(){
 		return image;
 	};
